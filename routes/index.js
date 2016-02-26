@@ -44,8 +44,41 @@ function getEvents(callback) {
   });
 }
 
-function daysInMonth(month,year) {
+function getDaysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
+}
+
+function formatMonth(year, month, daysInMonth) {
+  var date = new Date(year, month),
+      firstDay = date.getDay(),
+      days = [
+        []
+      ],
+      daysInWeek = 7,
+      w = 0,
+      d = 1,
+      dCounter = 0;
+
+  while (d <= daysInMonth) {
+    w = Math.floor(dCounter/daysInWeek);
+
+    if(!days[w]) {
+      days.push([])
+    }
+    if(dCounter < firstDay) {
+      days[0][dCounter%daysInWeek] = null;
+    } else {
+      console.log(dCounter%daysInWeek);
+      days[w][dCounter%daysInWeek] = d;
+      d++;
+    }
+    // w = Math.floor(d/daysInWeek);
+    // days[][]
+    dCounter++;
+  }
+
+  console.log(days);
+  return days;
 }
 
 function handleRequest(req, res) {
@@ -54,7 +87,9 @@ function handleRequest(req, res) {
       currentYear = currentDate.getFullYear(),
       month = req.params.month,
       englishMonth,
-      year = currentYear;
+      year = currentYear,
+      daysInMonth,
+      formattedMonth;
 
   //get a month from url, otherwise use current
   if(month) {
@@ -75,8 +110,12 @@ function handleRequest(req, res) {
 
   englishMonth = monthsByNumber[month];
 
+  daysInMonth = getDaysInMonth(year, month);
+
+  formattedMonth = formatMonth(year, month, daysInMonth);
+
   console.log('month:',month);
-    console.log('year:',year);
+  console.log('year:',year);
 
   getEvents(function(body){
     console.log('body.items',body.items);
@@ -87,7 +126,7 @@ function handleRequest(req, res) {
       prevMonth: findPrevMonth(month, currentMonth),
       nextMonth: findNextMonth(month, currentMonth),
       year: year,
-      days: daysInMonth(month, year)
+      formattedMonth: formattedMonth
     });
   });
 }

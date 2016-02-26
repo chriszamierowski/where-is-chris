@@ -2,16 +2,19 @@ extends layout
 
 block content
   h1 #{englishMonth} #{year}
-  
-  ul
-    each item in items
-      li= item.start.date
-  - var n = 1
-  ul
-    while n < days+1
-      div=n++
-
   if prevMonth
     a(href='/#{prevMonth}') prev
   if nextMonth
     a(href='/#{nextMonth}') next
+
+  ul
+    each item in items
+      li= item.start.date
+  .calendar
+    each w, di in formattedMonth
+      ul.week
+        each d, wi in w
+          if d
+            .day=d
+          else
+            span.day

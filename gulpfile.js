@@ -1,13 +1,24 @@
 var gulp = require('gulp'),
-  nodemon = require('gulp-nodemon'),
-  plumber = require('gulp-plumber'),
-  livereload = require('gulp-livereload'),
-  sass = require('gulp-sass');
+    nodemon = require('gulp-nodemon'),
+    plumber = require('gulp-plumber'),
+    livereload = require('gulp-livereload'),
+    sass = require('gulp-sass'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    mqpacker = require('css-mqpacker'),
+    csswring = require('csswring');
 
 gulp.task('sass', function () {
+  var processors = [
+    autoprefixer({browsers: ['last 1 version']}),
+    mqpacker,
+    csswring
+  ];
+
   gulp.src('./public/css/*.scss')
     .pipe(plumber())
     .pipe(sass())
+    .pipe(postcss(processors))
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
