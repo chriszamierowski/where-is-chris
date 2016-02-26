@@ -68,16 +68,13 @@ function formatMonth(year, month, daysInMonth) {
     if(dCounter < firstDay) {
       days[0][dCounter%daysInWeek] = null;
     } else {
-      console.log(dCounter%daysInWeek);
       days[w][dCounter%daysInWeek] = d;
       d++;
     }
-    // w = Math.floor(d/daysInWeek);
-    // days[][]
+
     dCounter++;
   }
 
-  console.log(days);
   return days;
 }
 
@@ -109,16 +106,10 @@ function handleRequest(req, res) {
   }
 
   englishMonth = monthsByNumber[month];
-
   daysInMonth = getDaysInMonth(year, month);
-
   formattedMonth = formatMonth(year, month, daysInMonth);
 
-  console.log('month:',month);
-  console.log('year:',year);
-
   getEvents(function(body){
-    console.log('body.items',body.items);
     res.render('index', {
       title: 'Express',
       items: body.items,
@@ -150,10 +141,8 @@ function findNextMonth(month, currentMonth) {
     return monthsByNumber[next];
   }
 }
-/* GET home page. */
 
 router.get('/', handleRequest);
-
 router.get('/:month', handleRequest);
 
 module.exports = router;
