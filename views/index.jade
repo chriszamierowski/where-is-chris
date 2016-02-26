@@ -1,18 +1,19 @@
 extends layout
 
 block content
-  h1 #{englishMonth} #{year}
-  if prevMonth
-    a(href='/#{prevMonth}') prev
-  if nextMonth
-    a(href='/#{nextMonth}') next
-
-  ul
-    each item in items
-      li= item.start.date
+  .header
+    h1 #{englishMonth} #{year}
+    .nav
+      if prevMonth
+        a(href='/#{prevMonth}') &#10096; Prev 
+      if nextMonth
+        a(href='/#{nextMonth}') Next &#10097;
+    //- ul
+    //-   each item in items
+    //-     li= item.start.date
   .calendar
     each w, di in formattedMonth
-      ul.week
+      .week
         each d, wi in w
           if d
             .day=d

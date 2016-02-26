@@ -1,9 +1,21 @@
 @import 'normalize';
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
-$day-border: 1px solid black;
+$day-border: 1px solid #CEC8C8;
+$btn-color: #83EBF1;
+$btn-hover-color: #74CBD0;
+$med-gray: #4A5052;
+$bg-color: #EAE8E8;
+$weight-normal: 400;
+$weight-bold: 700;
+$body-padding-v: 2vh;
+$screen-xs: 480px;
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: $weight-normal;
+  padding: $body-padding-v 3vw;
+  background-color: $bg-color;
 }
 
 ul, li {
@@ -12,14 +24,69 @@ ul, li {
 }
 
 a {
-  color: #00B7FF;
+  appearance: none;
+  background-color: $btn-color;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  font-weight: $weight-bold;
+  line-height: 1;
+  padding: 1em;
+  text-decoration: none;
+  transition: background-color .2s ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    background-color: $btn-hover-color;
+    color: #fff;
+  }
+
+  &:last-child {
+    margin-left: 1em;
+  }
 }
 
-.days {
-  
+h1 {
+  text-transform: capitalize;
+  margin: 0 0 0.5em;
+  display: inline-block;
+  color: $med-gray;
+}
+
+.header {
+  max-height: (100vh - $body-padding-v*2)/6;
+  padding-bottom: 3vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+@media (min-width: $screen-xs) {
+  .header {
+    text-align: left;
+    font-size: 1em;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  .nav {
+    float: right;
+  }
 }
 
 .week {
+  overflow: hidden;
+
   &:first-child {
     .day:not(:empty) {
       border-top: $day-border;
@@ -28,16 +95,22 @@ a {
 }
 
 .day {
-  width: calc(100%/7);
-  height: calc(100vh/6);
+  width: 100/7 + %;
+  height: (100vh - $body-padding-v*2)/6;
   float: left;
   box-sizing: border-box;
   border-right: $day-border;
   border-bottom: $day-border;
+  color: $med-gray;
+
+  &:first-child {
+    border-left: $day-border;
+  }
 }
 
 span.day {
   border-right: none;
+  border-left: none !important;
 
   &:last-of-type {
     border-right: $day-border;
