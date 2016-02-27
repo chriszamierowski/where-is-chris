@@ -10,6 +10,7 @@ $weight-normal: 400;
 $weight-bold: 700;
 $body-padding-v: 2vh;
 $screen-xs: 480px;
+//assume for the majority of the cases, there will be 5 rows of weeks + header
 $block-height: (100vh - $body-padding-v*2)/6;
 
 body {

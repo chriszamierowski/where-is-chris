@@ -140,7 +140,7 @@ function handleRequest(req, res) {
     formatEvents(body.items, year, month, formattedMonth);
 
     res.render('index', {
-      title: 'Express',
+      title: 'Where is Chris in '+englishMonth.charAt(0).toUpperCase() + englishMonth.slice(1)+'?',
       heading: englishMonth+' '+year,
       prevMonth: findPrevMonth(month, currentMonth),
       nextMonth: findNextMonth(month, currentMonth),
