@@ -2,20 +2,20 @@ extends layout
 
 block content
   .header
-    h1 #{englishMonth} #{year}
+    h1 #{heading}
     .nav
       if prevMonth
         a(href='/#{prevMonth}') &#10096; Prev 
       if nextMonth
         a(href='/#{nextMonth}') Next &#10097;
-    //- ul
-    //-   each item in items
-    //-     li= item.start.date
+
   .calendar
-    each w, di in formattedMonth
+    each w, wi in formattedMonth
       .week
-        each d, wi in w
+        each d, di in w
           if d
-            .day=d
+            .day=d.date.getDate()
+              if d.event
+                .event(class='event-offset-'+di+' event-duration-'+Math.floor(d.event.duration))= d.event.name
           else
             span.day

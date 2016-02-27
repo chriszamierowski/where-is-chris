@@ -86,6 +86,7 @@ h1 {
 
 .week {
   overflow: hidden;
+  position: relative;
 
   &:first-child {
     .day:not(:empty) {
@@ -114,5 +115,20 @@ span.day {
 
   &:last-of-type {
     border-right: $day-border;
+  }
+}
+
+.event {
+  position: absolute;
+  background-color: red;
+}
+
+@for $i from 0 through 6 {
+  .event-offset-#{$i} {
+    left: $i*(100/7)+%;
+  }
+
+  .event-duration-#{$i+1} {
+    width: ($i+1)*(100/7)+%;
   }
 }
