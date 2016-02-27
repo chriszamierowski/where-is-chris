@@ -1,6 +1,8 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .lost
+    div
+      h1 You took a wrong turn
+      p Try going #[a(href="/") here]
+      img(src="/img/car.svg")

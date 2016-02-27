@@ -26,6 +26,10 @@ ul, li {
 }
 
 a {
+  color: $btn-color;
+}
+
+.btn {
   appearance: none;
   background-color: $btn-color;
   border: 0;
@@ -159,5 +163,18 @@ span.day {
 
   .event-duration-#{$i+1} {
     width: ($i+1)*(100/7)+%;
+  }
+}
+
+.lost {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh - $body-padding-v;
+
+  img {
+    max-width: 50vh;
+    max-height: 50vh;
   }
 }

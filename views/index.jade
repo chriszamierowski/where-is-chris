@@ -5,9 +5,9 @@ block content
     h1 #{heading}
     .nav
       if prevMonth
-        a(href='/#{prevMonth}') &#10096; Prev 
+        a.btn(href='/#{prevMonth}') &#10096; Prev 
       if nextMonth
-        a(href='/#{nextMonth}') Next &#10097;
+        a.btn(href='/#{nextMonth}') Next &#10097;
 
   .calendar
     each w, wi in formattedMonth
