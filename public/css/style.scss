@@ -10,6 +10,7 @@ $weight-normal: 400;
 $weight-bold: 700;
 $body-padding-v: 2vh;
 $screen-xs: 480px;
+$block-height: (100vh - $body-padding-v*2)/6;
 
 body {
   font: 14px "Montserrat", Helvetica, Arial, sans-serif;
@@ -61,7 +62,7 @@ h1 {
 }
 
 .header {
-  max-height: (100vh - $body-padding-v*2)/6;
+  min-height: $block-height;
   padding-bottom: 3vh;
   box-sizing: border-box;
   overflow: hidden;
@@ -82,6 +83,14 @@ h1 {
   .nav {
     float: right;
   }
+
+  .calendar {
+    font-size: 1em;
+  }
+}
+
+.calendar {
+  font-size: .7em;
 }
 
 .week {
@@ -97,15 +106,21 @@ h1 {
 
 .day {
   width: 100/7 + %;
-  height: (100vh - $body-padding-v*2)/6;
+  height: $block-height;
   float: left;
   box-sizing: border-box;
   border-right: $day-border;
   border-bottom: $day-border;
   color: $med-gray;
+  padding: 1vh 1vw;
 
   &:first-child {
     border-left: $day-border;
+  }
+
+  span {
+    z-index: 1;
+    position: relative;
   }
 }
 
@@ -120,7 +135,20 @@ span.day {
 
 .event {
   position: absolute;
-  background-color: red;
+  height: $block-height;
+  top: 0;
+  z-index: 0;
+  padding-left: 1em;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  align-items: center;
+  
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 @for $i from 0 through 6 {

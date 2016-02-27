@@ -3,6 +3,16 @@ var router = express.Router();
 var google = require('googleapis');
 var request = require('request');
 var _ = require('lodash');
+var ColorScheme = require('color-scheme');
+
+var scheme = new ColorScheme;
+    scheme.from_hex('83EBF1')
+          .scheme('analogic')
+          .add_complement(true)
+          .distance(1)
+          .variation('soft');
+
+var colors = scheme.colors();
 
 var monthsByName = {
   january: 0,
@@ -34,14 +44,25 @@ var monthsByNumber = {
   11 : 'december'
 };
 
+function pickColor() {
+  return hexToRgba(colors[Math.floor(Math.random()*colors.length)], 0.8);
+}
+
+function hexToRgba(hex, a) {
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return 'rgba('+r + ',' + g + ',' + b+', '+a+')';
+}
+
 function getEvents(callback) {
-  console.log('https://www.googleapis.com/calendar/v3/calendars/'+process.env.GOOGLE_CALENDAR_ID+'/events?key='+process.env.GOOGLE_CALENDAR_API_KEY+'&location=34,-118');
   request({
     url:'https://www.googleapis.com/calendar/v3/calendars/'+process.env.GOOGLE_CALENDAR_ID+'/events?key='+process.env.GOOGLE_CALENDAR_API_KEY+'&location=34,-118',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
       callback(body);
     }
   });
@@ -189,6 +210,7 @@ function formatEvents(items, year, month, formattedMonth) {
             duration = (event.end - (event.start > monthStart ? event.start : monthStart))/(1000*60*60*24) + 1;
             event.addedToCal = true;
             event.duration = duration;
+            event.color = pickColor();
             formattedMonth[w][d].event = _.clone(event);
             
             //check for wrapping events

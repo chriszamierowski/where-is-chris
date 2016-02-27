@@ -14,8 +14,10 @@ block content
       .week
         each d, di in w
           if d
-            .day=d.date.getDate()
+            .day
+              span=d.date.getDate()
               if d.event
-                .event(class='event-offset-'+di+' event-duration-'+Math.floor(d.event.duration))= d.event.name
+                .event(class='event-offset-'+di+' event-duration-'+Math.floor(d.event.duration), style='background-color:'+d.event.color, title=d.event.name)
+                  span= d.event.name
           else
             span.day
