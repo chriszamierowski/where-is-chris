@@ -204,7 +204,7 @@ function formatEvents(events, year, month, formattedMonth) {
           // (event already account for && date exists) && ((event start before date || event day before day because of gcal weirdness with what timezone it returns))
           if((!event.addedToCal && formattedMonth[w][d]) && ((event.start <= formattedMonth[w][d].date) || (event.start.getDate() <= formattedMonth[w][d].date.getDate()))) {
             //how long does this event last?
-            duration = (event.end - (event.start > monthStart ? event.start : monthStart))/(1000*60*60*24) + 1;
+            duration = Math.floor((event.end - (event.start > monthStart ? event.start : monthStart))/(1000*60*60*24) + 1);
             event.addedToCal = true;
             event.duration = duration;
             event.color = pickColor();
