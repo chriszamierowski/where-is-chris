@@ -169,32 +169,29 @@ function findNextMonth(month, currentMonth) {
   }
 }
 
-function formatEvents(items, year, month, formattedMonth) {
-  var events = [],
-      e,
+function formatEvents(events, year, month, formattedMonth) {
+  var e,
       event,
-      eventCal = [],
-      i,
       w,
       d,
-      sDay,
-      tempStart,
-      monthStart = new Date(year, month, 1),
+      tempEnd,
+      monthStart = new Date(year, month, 1, 0, 0, 0),
       monthEnd = new Date(year, month+1, 0, 23, 59, 59),
       duration;
 
   // simplify gcal obj
-  for(i in items) {
-    //manipulate the way google stores dates, slightly
-    tempStart = new Date(items[i].start.date)
-    tempStart.setDate(tempStart.getDate() + 1, 0, 0, 0);
+  events = events.map((e) => {
+    tempEnd = new Date(e.end.date.split('-'));
+    // gcal considers an event to end the after the last day
+    // make it the day of so it's easier to render
+    tempEnd.setTime(tempEnd.getTime() - 1, 0, 0, 0);
 
-    events.push({
-      name: items[i].summary,
-      start: tempStart,
-      end: new Date(items[i].end.date)
-    });
-  }
+    return {
+      name: e.summary,
+      start: new Date(e.start.date.split('-')),
+      end: tempEnd
+    };
+  });
 
   // triple for loops with a while inside seems efficient!
   for(e in events) {
