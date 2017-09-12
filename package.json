@@ -28,5 +28,8 @@
     "gulp-plumber": "^1.0.0",
     "gulp-postcss": "^6.1.0",
     "gulp-sass": "^2.0.4"
+  },
+  "engines": {
+    "node": "5.10.0"
   }
 }
