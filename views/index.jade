@@ -2,7 +2,9 @@ extends layout
 
 block content
   .header
-    h1 #{heading}
+    h1
+      | #{heading}
+      span Default location: Seattle, WA
     .nav
       if prevMonth
         a.btn(href='/#{prevMonth}') &#10096; Prev 
